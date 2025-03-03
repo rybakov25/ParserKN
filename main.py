@@ -34,6 +34,7 @@ from programs_data import ProgramsData, ProgramsDataEncoder
 from MyTranslit import MyTranslit
 
 TEMP_FILE = "./tmp/last_output.docx"
+TEMP_DIR = "~/temp_dir/" if os.name == "posix" else f"{os.getenv('USERPROFILE')}\\Desktop\\"
 try:
     registry.register(MyTranslit)
     autodiscover()
@@ -175,12 +176,12 @@ class Parser:
 
     def get_json(self, data: dict) -> NoReturn:
         """Converting extracting datas from pdf file to json file"""
-        file_path: str = f"{os.getenv('USERPROFILE')}\\Desktop\\{self.__output_file}"
+        file_path: str = f"{TEMP_DIR}{self.__output_file}"
         with open(file_path, "w") as json_file:
             json.dump(data, json_file, cls=ProgramsDataEncoder, indent=4)
 
     def get_csv(self) -> NoReturn:
-        file_path: str = f"{os.getenv('USERPROFILE')}\\Desktop\\{self.__output_file}"
+        file_path: str = f"{TEMP_DIR}{self.__output_file}"
         data_dict: dict = self.__data.to_dict()
         with open(file_path, "w", newline="") as csv_file:
             writer = csv.writer(csv_file, delimiter=";")
@@ -195,7 +196,7 @@ class Parser:
     def get_xlsx(self):
         # todo: finish write, don't use in work
         df = pd.DataFrame().from_dict(self.__data.to_dict(), orient="columns")
-        self.__output_file = f"{os.getenv('USERPROFILE')}\\Desktop\\{self.__output_file}"
+        self.__output_file = f"{TEMP_DIR}{self.__output_file}"
         df.to_excel(self.__output_file, index=False, sheet_name=self.__data.cipher)
 
 
