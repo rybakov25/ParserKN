@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "parserkn"
+version = "0.1.0"
+description = "Analyzer of PDF maps of settings and their translation into Word/Excel file"
+authors = ["rybakov25 (Pavel Rybakov)"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pandas = "^2.2.3"
+pdf2docx = "^0.5.8"
+transliterate = "^1.10.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
